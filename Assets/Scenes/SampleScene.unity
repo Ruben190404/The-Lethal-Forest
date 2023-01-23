@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jumpForce: 50
+  jumpForce: 15
   CameraSensitivity: 30
   groundLayer:
     serializedVersion: 2
