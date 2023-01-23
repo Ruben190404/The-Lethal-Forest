@@ -6,23 +6,24 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-       PlayerMovement PlayerMovement;
-       float sensitivity;
+    PlayerMovement PlayerMovement;
+    float sensitivity;
+    
+    private float rotationX = 0f;
+
     void Start()
     {
         PlayerMovement = GetComponentInParent<PlayerMovement>();
         sensitivity = PlayerMovement.CameraSensitivity;
-        Debug.Log(sensitivity);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        // float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
-        // transform.Rotate(-mouseY, 0,0);   
+        rotationX -= Input.GetAxis("Mouse Y") * sensitivity;
         
-        //when the mouse moves on the y axis rotate the camera around the player object
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
-        transform.RotateAround(transform.parent.position, transform.right, -mouseY);
+        rotationX = Mathf.Clamp(rotationX, -90, 0f);
+        
+        transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
     }
 }

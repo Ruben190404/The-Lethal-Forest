@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float jumpForce = 0f;
     [SerializeField] public float CameraSensitivity = 0f;
-    // [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask groundLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -26,18 +26,24 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dirX = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector3(dirX * speed, rb.velocity.y, rb.velocity.z);
-        dirZ = Input.GetAxis("Vertical");
-        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, dirZ * speed);
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        float inputX = Input.GetAxis("Horizontal");
+        float inputZ = Input.GetAxis("Vertical");
+        
+        Vector3 movement = (transform.right * inputX + transform.forward * inputZ) * speed;
+        rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
+        
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
 
         // rotate player on the y axis with mouse
         float mouseX = Input.GetAxis("Mouse X") * CameraSensitivity;
-        transform.Rotate(0,0,mouseX);        
+        transform.Rotate(0,mouseX,0);        
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, bc.bounds.extents.y + 0.1f, groundLayer);
     }
 }
