@@ -7,19 +7,26 @@ using UnityEngine.UI;
 
 public class Collectible : MonoBehaviour
 {
+    int TotalItems;
 
-    private float Score;
+    private float ItemsCollected;
+    [SerializeField] private TextMeshProUGUI Text;
+    [SerializeField] private AudioSource collectionSoundEffect;
     
-    [SerializeField] private TextMeshProUGUI ScoreText;
-    [SerializeField] private int CherryValue;
-
     public void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Cherry"))
         {
-            Score += CherryValue;
-            ScoreText.text = "Score: " + Score;
             Destroy(collision.gameObject);
+            ItemsCollected++;
+            Text.text = ItemsCollected + "/" + TotalItems;
+            collectionSoundEffect.Play();
         }
+    }
+
+    public void LoadCollectibles()
+    {
+        TotalItems = GameObject.FindGameObjectsWithTag("Cherry").Length;
+        Text.text = ItemsCollected + "/" + TotalItems;
     }
 }

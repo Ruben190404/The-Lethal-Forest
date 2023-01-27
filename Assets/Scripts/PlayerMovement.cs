@@ -7,8 +7,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    private BoxCollider bc;
+    private CapsuleCollider cc;
     private float Speed;
+    private Animator anim;
     
     [SerializeField] private float NormalSpeed;
     [SerializeField] private float SprintSpeed;
@@ -20,18 +21,18 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        bc = GetComponent<BoxCollider>();
+        cc = GetComponent<CapsuleCollider>();
+        anim = GetComponent<Animator>();
         Physics.gravity = new Vector3(0, -Gravity, 0);
         
         Speed = NormalSpeed;
+        anim.SetTrigger("Idle");
     }
 
     void Update()
     {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputZ = Input.GetAxis("Vertical");
-        
-        
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputZ = Input.GetAxisRaw("Vertical");
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -44,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
-            Debug.Log("Jump");
             rb.velocity = new Vector3(rb.velocity.x, JumpForce, rb.velocity.z);
         }
 
@@ -57,6 +57,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, bc.bounds.extents.y + 0.1f, GroundLayer);
+        return Physics.Raycast(transform.position, Vector3.down, cc.bounds.extents.y + 0.1f, GroundLayer);
     }
 }
