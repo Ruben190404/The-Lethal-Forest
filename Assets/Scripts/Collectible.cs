@@ -9,7 +9,7 @@ public class Collectible : MonoBehaviour
 {
     int TotalItems;
 
-    private float ItemsCollected;
+    public float ItemsCollected = 0;
     [SerializeField] private TextMeshProUGUI Text;
     [SerializeField] private AudioSource collectionSoundEffect;
     

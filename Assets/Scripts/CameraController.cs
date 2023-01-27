@@ -6,15 +6,15 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    PlayerMovement PlayerMovement;
+    PlayerMovement playerMovement;
     float sensitivity;
     
     private float rotationX = 0f;
 
     void Start()
     {
-        PlayerMovement = GetComponentInParent<PlayerMovement>();
-        sensitivity = PlayerMovement.CameraSensitivity;
+        playerMovement = GetComponentInParent<PlayerMovement>();
+        sensitivity = playerMovement.CameraSensitivity;
     }
 
 
