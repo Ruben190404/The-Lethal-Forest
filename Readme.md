@@ -1,4 +1,4 @@
-                                                                            #Lore<br>
+#Lore<br>
 Once upon a time, there was a mischievous frog named Freddy. 
 Freddy lived near a monster fruit store owned by a fierce monster named Grondor. 
 Despite Grondor's fearsome reputation, he had grown tired of constantly killing and decided to open a fruit store as a change of pace.
