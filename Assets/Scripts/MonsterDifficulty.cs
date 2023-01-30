@@ -8,6 +8,9 @@ public class MonsterDifficulty : MonoBehaviour
     [SerializeField] float ItemsCollected;
     [SerializeField] GameObject monster;
     [SerializeField] Terrain terrain;
+	[SerializeField] float DefaultSpeed;
+	public float MonsterSpeed;
+
     public float ObstacleRadius;
     private bool Spawned = false;
     
@@ -15,6 +18,7 @@ public class MonsterDifficulty : MonoBehaviour
     void Update()
     {
         ItemsCollected = collectible.ItemsCollected;
+		MonsterSpeed = ItemsCollected * DefaultSpeed;
         SpawnMonster();
     }
 

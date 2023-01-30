@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
+
 public class MonsterMovement : MonoBehaviour
 {
     public Transform player;
@@ -13,8 +14,9 @@ public class MonsterMovement : MonoBehaviour
     private float CurrentSpeed;
     private float TimePassed;
     private float Attack;
-    
+    MonsterDifficulty monsterDifficulty;
     [SerializeField] MonsterAttack monsterAttack;
+    [SerializeField] float MonsterSpeed;
 
     private enum AnimStates
     {
@@ -35,12 +37,15 @@ public class MonsterMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameObject.Find("Player").transform;
         monsterAttack = GetComponent<MonsterAttack>();
+        monsterDifficulty = GameObject.Find("MonsterDifficulty").GetComponent<MonsterDifficulty>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Attack = monsterAttack.Attack;
+        MonsterSpeed = monsterDifficulty.MonsterSpeed;
+        agent.speed = MonsterSpeed;
         UpdateAnimationState();
         TimePassed += Time.deltaTime;
         if (TimePassed >= 1f)

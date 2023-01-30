@@ -92,6 +92,7 @@ MonoBehaviour:
   player: {fileID: 0}
   agent: {fileID: 3471191880657968359}
   monsterAttack: {fileID: 70267639360335233}
+  MonsterSpeed: 0
 --- !u!195 &3471191880657968359
 NavMeshAgent:
   m_ObjectHideFlags: 0
