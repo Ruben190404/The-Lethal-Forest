@@ -1,11 +1,4 @@
-  _______ _            _          _   _           _   ______                  _   <br>
- |__   __| |          | |        | | | |         | | |  ____|                | |  <br>
-    | |  | |__   ___  | |     ___| |_| |__   __ _| | | |__ ___  _ __ ___  ___| |_ <br>
-    | |  | '_ \ / _ \ | |    / _ \ __| '_ \ / _` | | |  __/ _ \| '__/ _ \/ __| __|<br>
-    | |  | | | |  __/ | |___|  __/ |_| | | | (_| | | | | | (_) | | |  __/\__ \ |_ <br>
-    |_|  |_| |_|\___| |______\___|\__|_| |_|\__,_|_| |_|  \___/|_|  \___||___/\__|<br>
-                                                                                  
-#Lore<br>
+                                                                            #Lore<br>
 Once upon a time, there was a mischievous frog named Freddy. 
 Freddy lived near a monster fruit store owned by a fierce monster named Grondor. 
 Despite Grondor's fearsome reputation, he had grown tired of constantly killing and decided to open a fruit store as a change of pace.
