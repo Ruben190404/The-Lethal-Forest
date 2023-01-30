@@ -9,23 +9,18 @@ public class MonsterDifficulty : MonoBehaviour
     [SerializeField] GameObject monster;
     [SerializeField] Terrain terrain;
     public float ObstacleRadius;
-    private int difficulty = 0;
+    private bool Spawned = false;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        difficulty = 0;
-    }
-
     // Update is called once per frame
     void Update()
     {
         ItemsCollected = collectible.ItemsCollected;
+        SpawnMonster();
     }
 
-    void SetDifficulty()
+    void SpawnMonster()
     {
-        if (ItemsCollected == 1)
+        if (ItemsCollected == 1 && !Spawned)
         {
             Vector3 SpawnPosition = new Vector3(Random.Range(
                     terrain.transform.position.x,
@@ -41,6 +36,7 @@ public class MonsterDifficulty : MonoBehaviour
             {
                 Instantiate(monster, SpawnPosition, Quaternion.identity);
             }
+            Spawned = true;
         }
     }
 }

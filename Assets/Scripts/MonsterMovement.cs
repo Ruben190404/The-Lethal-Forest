@@ -11,6 +11,10 @@ public class MonsterMovement : MonoBehaviour
     private Rigidbody rb;
     private Animator anim;
     private float CurrentSpeed;
+    private float TimePassed;
+    private float Attack;
+    
+    [SerializeField] MonsterAttack monsterAttack;
 
     private enum AnimStates
     {
@@ -18,6 +22,7 @@ public class MonsterMovement : MonoBehaviour
         Walking,
         Rage,
         Attack,
+        Attack2,
         Dead
     }
 
@@ -28,27 +33,45 @@ public class MonsterMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        
+        player = GameObject.Find("Player").transform;
+        monsterAttack = GetComponent<MonsterAttack>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(player.position);
+        Attack = monsterAttack.Attack;
         UpdateAnimationState();
+        TimePassed += Time.deltaTime;
+        if (TimePassed >= 1f)
+        {
+            SetDestination();
+            TimePassed = 0f;
+        }
     }
 
     void UpdateAnimationState()
     {
-        if (agent.velocity.magnitude > 0f)
+        if (agent.velocity.magnitude > 0f && Attack == 0)
         {
             anim.SetInteger("State", (int)AnimStates.Walking);
         }
-    
+        else if (Attack == 1)
+        {
+            anim.SetInteger("State", (int)AnimStates.Attack);
+        }
+        else if (Attack == 2)
+        {
+            anim.SetInteger("State", (int)AnimStates.Attack2);
+        }
         else
         {
             anim.SetInteger("State", (int)AnimStates.Idle);
         }
-        
+    }
+    
+    void SetDestination()
+    {
+        agent.SetDestination(player.position);
     }
 }
