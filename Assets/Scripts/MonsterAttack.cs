@@ -7,9 +7,10 @@ public class MonsterAttack : MonoBehaviour
     private Transform Player;
     private float AttackRange = 1f;
     public float Attack;
-    private float TimePassed;
+    [SerializeField]private float TimePassed;
     private Animator anim;
-    private bool Attacking;
+    [SerializeField]private bool Attacking;
+    public bool PlayerKilled = false;
     
     // Start is called before the first frame update
     void Start()
@@ -27,24 +28,27 @@ public class MonsterAttack : MonoBehaviour
 
     void InRange()
     {
-        //check if player is in range
-        if (Vector3.Distance(transform.position, Player.position) <= AttackRange && !Attacking)
+        if (
+            Vector3.Distance(transform.position, Player.position) <= AttackRange && 
+            !Attacking && 
+            TimePassed >= 3f && 
+            !PlayerKilled
+            )
         {
             Attacking = true;
-            Hit();
+            Attack = Random.Range(1 ,3);
         }
-        
     }
     
     void Hit()
     {
-        Attack = Random.Range(1 ,3);
-        Debug.Log("Hit");
+        PlayerKilled = true;
     }
     
     void AttackStop()
     {
         Attack = 0;
         Attacking = false;
+        TimePassed = 0f;
     }
 }

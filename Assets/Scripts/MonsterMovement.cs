@@ -69,6 +69,7 @@ public class MonsterMovement : MonoBehaviour
         {
             anim.SetInteger("State", (int)AnimStates.Attack2);
         }
+        
         else
         {
             anim.SetInteger("State", (int)AnimStates.Idle);
