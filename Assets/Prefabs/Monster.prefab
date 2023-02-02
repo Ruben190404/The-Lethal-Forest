@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3471191880657968359}
   - component: {fileID: 70267639360335233}
   - component: {fileID: 2153394715108567053}
+  - component: {fileID: 6027667062766135336}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Monster
@@ -30,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 128950146207408975}
   m_LocalRotation: {x: 0, y: -0.5, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 137.65, y: 0.00000071525574, z: 135.81636}
+  m_LocalPosition: {x: 392.92923, y: 0, z: 241.01689}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -146,6 +147,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dead: 0
+--- !u!114 &6027667062766135336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128950146207408975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9083f6f0c0bb434194c517b44a0eb75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 10
+  angle: 30
+  heigth: 1
+  meshColor: {r: 1, g: 0, b: 0, a: 1}
+  scanFrequencey: 30
+  layers:
+    serializedVersion: 2
+    m_Bits: 64
+  occlusionLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  objects: []
 --- !u!1 &523096170122542619
 GameObject:
   m_ObjectHideFlags: 0

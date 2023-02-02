@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class Collectible : MonoBehaviour
 {
-    int TotalItems;
-
+    public int TotalItems;
     public float ItemsCollected = 0;
     [SerializeField] private TextMeshProUGUI Text;
     [SerializeField] private AudioSource collectionSoundEffect;

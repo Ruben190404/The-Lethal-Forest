@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MonsterDifficulty : MonoBehaviour
 {
     [SerializeField] Collectible collectible;
     [SerializeField] float ItemsCollected;
-    [SerializeField] GameObject monster;
     [SerializeField] Terrain terrain;
 	[SerializeField] float DefaultSpeed;
-	public float MonsterSpeed;
 
     public float ObstacleRadius;
     private bool Spawned = false;
-    
+    public GameObject monster;
+    public float MonsterSpeed;
+
     // Update is called once per frame
     void Update()
     {
@@ -38,7 +40,8 @@ public class MonsterDifficulty : MonoBehaviour
         
             if (obstacles.Length == 0)
             {
-                Instantiate(monster, SpawnPosition, Quaternion.identity);
+                monster.transform.position = SpawnPosition;
+                monster.SetActive(true);
             }
             Spawned = true;
         }

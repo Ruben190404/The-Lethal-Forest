@@ -9,10 +9,11 @@ using Unity.VisualScripting;
 
 public class PlayerDeath : MonoBehaviour
 {
-    MonsterAttack monsterAttack;
-    bool Dead;
+    public MonsterAttack monsterAttack;
+    public bool Dead;
     private bool DeathScreen;
     private Rigidbody rb;
+    public bool Running;
     
     [SerializeField] private TextMeshProUGUI DeathText;
     [SerializeField] private Image DeathPanel;
@@ -26,20 +27,18 @@ public class PlayerDeath : MonoBehaviour
 
     void Update()
     {
-        if (monsterAttack == null)
+        if (Running)
         {
-            monsterAttack = GameObject.FindWithTag("Monster").GetComponent<MonsterAttack>();
+                Dead = monsterAttack.PlayerKilled;
+                if (Dead)
+                {
+                    rb.velocity = Vector3.zero;
+                    StartCoroutine(Fade(true));
+                    WaitTimer += Time.deltaTime;
+                }
+
+                LoadScene();
         }
-        
-        Dead = monsterAttack.PlayerKilled;
-        
-        if (Dead)
-        {
-            rb.velocity = Vector3.zero;
-            StartCoroutine(Fade(true));
-            WaitTimer += Time.deltaTime;
-        }
-        LoadScene();
     }
 
     IEnumerator Fade(bool Fading)
@@ -49,6 +48,15 @@ public class PlayerDeath : MonoBehaviour
             for (float i = 0; i <= 1; i += (Time.deltaTime / 2f))
             {
                 DeathPanel.color = new Color(0, 0, 0, 1);
+                DeathText.color = new Color(0.68f, 0, 0, i);
+                yield return null;
+            }
+        }
+        else
+        {
+            for (float i = 1; i >= 0; i -= (Time.deltaTime / 2f))
+            {
+                DeathPanel.color = new Color(0, 0, 0, 0);
                 DeathText.color = new Color(0.68f, 0, 0, i);
                 yield return null;
             }
