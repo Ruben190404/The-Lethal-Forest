@@ -12,11 +12,12 @@ public class MonsterMovement : MonoBehaviour
     private Rigidbody rb;
     private Animator anim;
     private float CurrentSpeed;
-    private float TimePassed;
     private float Attack;
     MonsterDifficulty monsterDifficulty;
+    
     [SerializeField] MonsterAttack monsterAttack;
     [SerializeField] float MonsterSpeed;
+    [SerializeField] float AnimationSpeed;
 
     private enum AnimStates
     {
@@ -25,7 +26,6 @@ public class MonsterMovement : MonoBehaviour
         Rage,
         Attack,
         Attack2,
-        Dead
     }
 
 
@@ -37,7 +37,7 @@ public class MonsterMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameObject.Find("Player").transform;
         monsterAttack = GetComponent<MonsterAttack>();
-        monsterDifficulty = GameObject.Find("MonsterDifficulty").GetComponent<MonsterDifficulty>();
+        monsterDifficulty = GameObject.Find("MapInitialize").GetComponent<MonsterDifficulty>();
     }
 
     // Update is called once per frame
@@ -47,12 +47,11 @@ public class MonsterMovement : MonoBehaviour
         MonsterSpeed = monsterDifficulty.MonsterSpeed;
         agent.speed = MonsterSpeed;
         UpdateAnimationState();
-        TimePassed += Time.deltaTime;
-        if (TimePassed >= 1f)
-        {
-            SetDestination();
-            TimePassed = 0f;
-        }
+        SetDestination();
+
+        AnimationSpeed = MonsterSpeed;
+        
+        anim.speed = AnimationSpeed;
     }
 
     void UpdateAnimationState()
@@ -69,7 +68,6 @@ public class MonsterMovement : MonoBehaviour
         {
             anim.SetInteger("State", (int)AnimStates.Attack2);
         }
-        
         else
         {
             anim.SetInteger("State", (int)AnimStates.Idle);

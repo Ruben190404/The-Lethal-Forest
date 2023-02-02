@@ -42,13 +42,12 @@ public class MonsterAttack : MonoBehaviour
     
     void Hit()
     {
-        PlayerKilled = true;
-    }
-    
-    void AttackStop()
-    {
-        Attack = 0;
+        if (Vector3.Distance(transform.position, Player.position) <= AttackRange)
+        {
+            PlayerKilled = true;
+        }
         Attacking = false;
+        Attack = 0;
         TimePassed = 0f;
     }
 }

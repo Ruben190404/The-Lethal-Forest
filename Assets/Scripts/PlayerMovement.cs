@@ -10,13 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider cc;
     private float Speed;
     private Animator anim;
-    
+
     [SerializeField] private float NormalSpeed;
     [SerializeField] private float SprintSpeed;
     [SerializeField] private float JumpForce;
     [SerializeField] public float CameraSensitivity;
     [SerializeField] private LayerMask GroundLayer;
     [SerializeField] private float Gravity;
+    [SerializeField] private float AnimationSpeed;
 
     void Start()
     {
@@ -26,14 +27,14 @@ public class PlayerMovement : MonoBehaviour
         Physics.gravity = new Vector3(0, -Gravity, 0);
         
         Speed = NormalSpeed;
-        anim.SetTrigger("Idle");
     }
 
     void Update()
     {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputZ = Input.GetAxisRaw("Vertical");
-
+        UpdateAnimation();
+        
+        float H_Input = Input.GetAxisRaw("Horizontal");
+        float V_Input = Input.GetAxisRaw("Vertical");
         if (Input.GetKey(KeyCode.LeftShift))
         {
             Speed = SprintSpeed;
@@ -51,12 +52,30 @@ public class PlayerMovement : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * CameraSensitivity;
         transform.Rotate(0, mouseX, 0);
         
-        Vector3 movement = (transform.right * inputX + transform.forward * inputZ) * Speed;
+        Vector3 movement = (transform.right * H_Input + transform.forward * V_Input) * Speed;
         rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
+
+        AnimationSpeed = Speed;
+        
+        anim.speed = AnimationSpeed;
     }
 
     private bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, cc.bounds.extents.y + 0.1f, GroundLayer);
+    }
+
+    void UpdateAnimation()
+    {
+        if (rb.velocity.magnitude > 0.1)
+        {
+            anim.ResetTrigger("Idle");
+            anim.SetTrigger("Crawl");
+        }
+        else
+        {
+            anim.ResetTrigger("Crawl");
+            anim.SetTrigger("Idle");
+        }
     }
 }

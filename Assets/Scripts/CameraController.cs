@@ -25,5 +25,6 @@ public class CameraController : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, -90, 0f);
         
         transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
+        
     }
 }
