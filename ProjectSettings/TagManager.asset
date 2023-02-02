@@ -7,6 +7,7 @@ TagManager:
   - Cherry
   - Guts
   - Monster
+  - Text
   layers:
   - Default
   - TransparentFX

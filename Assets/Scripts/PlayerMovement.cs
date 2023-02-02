@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(anim.speed);
+
         UpdateAnimation();
         
         float H_Input = Input.GetAxisRaw("Horizontal");
@@ -44,11 +46,6 @@ public class PlayerMovement : MonoBehaviour
             Speed = NormalSpeed;
         }
         
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
-        {
-            rb.velocity = new Vector3(rb.velocity.x, JumpForce, rb.velocity.z);
-        }
-
         float mouseX = Input.GetAxis("Mouse X") * CameraSensitivity;
         transform.Rotate(0, mouseX, 0);
         
@@ -57,24 +54,39 @@ public class PlayerMovement : MonoBehaviour
 
         AnimationSpeed = Speed;
         
-        anim.speed = AnimationSpeed;
-    }
-
-    private bool IsGrounded()
-    {
-        return Physics.Raycast(transform.position, Vector3.down, cc.bounds.extents.y + 0.1f, GroundLayer);
     }
 
     void UpdateAnimation()
     {
         if (rb.velocity.magnitude > 0.1)
         {
+            anim.speed = AnimationSpeed;
             anim.ResetTrigger("Idle");
+            anim.ResetTrigger("TurnRight");
+            anim.ResetTrigger("TurnLeft");
             anim.SetTrigger("Crawl");
         }
+        // else if (rb.rotation.y < 0.1)
+        // {
+        //     anim.ResetTrigger("Idle");
+        //     anim.ResetTrigger("TurnRight");
+        //     anim.ResetTrigger("Crawl");
+        //     anim.SetTrigger("TurnLeft");
+        // }
+        // else if (rb.rotation.y > 0.1)
+        // {
+        //     anim.ResetTrigger("Idle");
+        //     anim.ResetTrigger("TurnLeft");
+        //     anim.ResetTrigger("Crawl");
+        //     anim.SetTrigger("TurnRight");
+        // }
         else
         {
+            anim.speed = 1;
             anim.ResetTrigger("Crawl");
+            anim.ResetTrigger("Idle");
+            anim.ResetTrigger("TurnRight");
+            anim.ResetTrigger("TurnLeft");
             anim.SetTrigger("Idle");
         }
     }
