@@ -54,6 +54,7 @@ public class MonsterDeath : MonoBehaviour
     
     void Victory()
     {
+        PlayerPrefs.SetInt("Wins", PlayerPrefs.GetInt("Wins") + 1);
         SceneManager.LoadScene(2);
     }
 }

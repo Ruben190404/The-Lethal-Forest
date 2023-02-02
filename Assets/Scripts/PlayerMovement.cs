@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(anim.speed);
-
         UpdateAnimation();
         
         float H_Input = Input.GetAxisRaw("Horizontal");

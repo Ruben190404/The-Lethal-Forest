@@ -8,10 +8,19 @@ public class Credits : MonoBehaviour
 {
     [SerializeField] private Image panel;
     [SerializeField] private TextMeshProUGUI Title;
+    [SerializeField] private TextMeshProUGUI WinsAmount;
     
     void Start()
     {
         StartCoroutine(Fade());
+        if (PlayerPrefs.GetInt("Wins") > 1)
+        {
+            WinsAmount.text = "Wins: " + PlayerPrefs.GetInt("Wins");
+        }
+        else
+        {
+            WinsAmount.text = "First Win!";
+        }
     }
 
     IEnumerator Fade()

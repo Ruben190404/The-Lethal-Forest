@@ -30,8 +30,4 @@ public class GameInit : MonoBehaviour
         temp.SetActive(false);
         Player.GetComponent<PlayerDeath>().Running = true;
     }
-
-    void InitPlayer()
-    {
-    }
 }

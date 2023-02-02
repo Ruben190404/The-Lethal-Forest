@@ -27,8 +27,9 @@ public class PlayerDeath : MonoBehaviour
 
     void Update()
     {
-        if (Running)
+        if (Running && GameObject.FindWithTag("Monster") != null)
         {
+                monsterAttack = GameObject.FindWithTag("Monster").GetComponent<MonsterAttack>();
                 Dead = monsterAttack.PlayerKilled;
                 if (Dead)
                 {
