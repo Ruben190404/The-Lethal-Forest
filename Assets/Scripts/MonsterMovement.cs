@@ -23,7 +23,6 @@ public class MonsterMovement : MonoBehaviour
     {
         Idle,
         Walking,
-        Rage,
         Attack,
         Attack2,
     }
@@ -37,17 +36,17 @@ public class MonsterMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameObject.Find("Player").transform;
         monsterAttack = GetComponent<MonsterAttack>();
-        monsterDifficulty = GameObject.Find("MapInit").GetComponent<MonsterDifficulty>();
+        // monsterDifficulty = GameObject.Find("MapInit").GetComponent<MonsterDifficulty>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Attack = monsterAttack.Attack;
-        MonsterSpeed = monsterDifficulty.MonsterSpeed;
+        // MonsterSpeed = monsterDifficulty.MonsterSpeed;
         agent.speed = MonsterSpeed;
         UpdateAnimationState();
-        SetDestination();
+        // SetDestination();
 
         AnimationSpeed = MonsterSpeed;
     }
