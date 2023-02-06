@@ -31,7 +31,7 @@ public class MonsterDifficulty : MonoBehaviour
             Vector3 playerPosition = GameObject.Find("Player").transform.position;
             float angle = Random.Range(-180f, 180f);
             Vector3 spawnDirection = new Vector3(Mathf.Sin(angle * Mathf.Deg2Rad), 0, Mathf.Cos(angle * Mathf.Deg2Rad));            
-            Vector3 SpawnPosition = playerPosition + (spawnDirection * 20);
+            Vector3 SpawnPosition = playerPosition + (spawnDirection * 5);
             SpawnPosition.y = terrain.SampleHeight(SpawnPosition);
         
             Collider[] obstacles = Physics.OverlapSphere(SpawnPosition, ObstacleRadius, 1);

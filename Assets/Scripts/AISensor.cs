@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 // using Mono.Cecil.Cil;
 using UnityEngine;
+using UnityEngine.AI;
 using Object = System.Object;
 
 [ExecuteInEditMode]
 public class AISensor : MonoBehaviour
 {
+    private NavMeshAgent agent;
+
     [Header("Wedge")]
     public float distance = 10f;
     public float angle = 30f;
@@ -24,6 +27,7 @@ public class AISensor : MonoBehaviour
     private int count;
     private float scanInterval;
     private float scanTimer;
+    public bool PlayerInSight = false;
     
     
     // Start is called before the first frame update
@@ -53,8 +57,16 @@ public class AISensor : MonoBehaviour
             if (IsInSight(obj))
             {
                 objects.Add(obj);
-                //start following the player
-                // if (!sensor.InSight(Player.GameObject)
+                if (obj.CompareTag("Player"))
+                {
+                    PlayerInSight = true;
+                    agent = GetComponent<NavMeshAgent>();
+                    agent.SetDestination(obj.transform.position);
+                }
+                else
+                {
+                    PlayerInSight = false;
+                }
             }
         }
     }

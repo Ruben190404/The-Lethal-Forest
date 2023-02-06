@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider cc;
     private float Speed;
     private Animator anim;
+    private bool NotRotating = true;
 
     [SerializeField] private float NormalSpeed;
     [SerializeField] private float SprintSpeed;
@@ -64,14 +65,14 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("TurnLeft");
             anim.SetTrigger("Crawl");
         }
-        // else if (rb.rotation.y < 0.1)
+        // else if (rb.rotation.y < 0.1 && NotRotating)
         // {
         //     anim.ResetTrigger("Idle");
         //     anim.ResetTrigger("TurnRight");
         //     anim.ResetTrigger("Crawl");
         //     anim.SetTrigger("TurnLeft");
         // }
-        // else if (rb.rotation.y > 0.1)
+        // else if (rb.rotation.y > 0.1 && NotRotating)
         // {
         //     anim.ResetTrigger("Idle");
         //     anim.ResetTrigger("TurnLeft");
@@ -87,5 +88,10 @@ public class PlayerMovement : MonoBehaviour
             anim.ResetTrigger("TurnLeft");
             anim.SetTrigger("Idle");
         }
+    }
+
+    void StopRotate()
+    {
+        
     }
 }
