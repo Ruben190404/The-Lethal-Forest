@@ -25,8 +25,8 @@ public class PlayerMovement : MonoBehaviour
         cc = GetComponent<CapsuleCollider>();
         anim = GetComponent<Animator>();
         Physics.gravity = new Vector3(0, -Gravity, 0);
-        
         Speed = NormalSpeed;
+        Cursor.visible = false;
     }
 
     void Update()

@@ -24,6 +24,7 @@ public class MainMenu : MonoBehaviour
         {
             DeathText.text = "Deaths: " + DeathAmount;
         }
+        Cursor.visible = true;
     }
 
     public void StartButton()
