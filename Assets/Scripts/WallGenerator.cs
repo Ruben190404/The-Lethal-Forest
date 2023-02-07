@@ -14,9 +14,8 @@ public class WallGenerator : MonoBehaviour
         Vector3 terrainPosition = terrain.transform.position;
 
         BoxCollider wallCollider = wallPrefab.GetComponent<BoxCollider>();
-        float colliderSize = wallCollider.size.z;
-        float wallWidth = 2.812119f;
-        float offset = (wallWidth - colliderSize) / 2f;
+        float colliderSize = wallCollider.size.x;
+        float offset = (colliderSize) / 20;
 
         for (int x = 0; x < terrain.terrainData.heightmapResolution; x++)
         {

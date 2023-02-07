@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider cc;
     private float Speed;
     private Animator anim;
-    private bool NotRotating = true;
+    public bool NotRotating = true;
+    private float mouseX;
 
     [SerializeField] private float NormalSpeed;
     [SerializeField] private float SprintSpeed;
@@ -33,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         UpdateAnimation();
-        
+        Debug.Log(mouseX);
         float H_Input = Input.GetAxisRaw("Horizontal");
         float V_Input = Input.GetAxisRaw("Vertical");
         if (Input.GetKey(KeyCode.LeftShift))
@@ -45,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
             Speed = NormalSpeed;
         }
         
-        float mouseX = Input.GetAxis("Mouse X") * CameraSensitivity;
+        mouseX = Input.GetAxis("Mouse X") * CameraSensitivity;
         transform.Rotate(0, mouseX, 0);
         
         Vector3 movement = (transform.right * H_Input + transform.forward * V_Input) * Speed;
@@ -59,39 +60,28 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.velocity.magnitude > 0.1)
         {
-            anim.speed = AnimationSpeed;
-            anim.ResetTrigger("Idle");
-            anim.ResetTrigger("TurnRight");
-            anim.ResetTrigger("TurnLeft");
-            anim.SetTrigger("Crawl");
+            anim.SetInteger("State", 2);
         }
-        // else if (rb.rotation.y < 0.1 && NotRotating)
-        // {
-        //     anim.ResetTrigger("Idle");
-        //     anim.ResetTrigger("TurnRight");
-        //     anim.ResetTrigger("Crawl");
-        //     anim.SetTrigger("TurnLeft");
-        // }
-        // else if (rb.rotation.y > 0.1 && NotRotating)
-        // {
-        //     anim.ResetTrigger("Idle");
-        //     anim.ResetTrigger("TurnLeft");
-        //     anim.ResetTrigger("Crawl");
-        //     anim.SetTrigger("TurnRight");
-        // }
+        else if (mouseX < -1 && NotRotating)
+        {
+            anim.SetInteger("State", 3);
+            NotRotating = false;
+        }
+        else if (mouseX > 1 && NotRotating)
+        {
+            anim.SetInteger("State", 4);
+            NotRotating = false;
+        }
         else
         {
             anim.speed = 1;
-            anim.ResetTrigger("Crawl");
-            anim.ResetTrigger("Idle");
-            anim.ResetTrigger("TurnRight");
-            anim.ResetTrigger("TurnLeft");
-            anim.SetTrigger("Idle");
+            anim.SetInteger("State", 1);
+            NotRotating = true;
         }
     }
 
     void StopRotate()
     {
-        
+        NotRotating = true;
     }
 }

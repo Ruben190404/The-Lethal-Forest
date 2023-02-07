@@ -11,7 +11,9 @@ public class Compass : MonoBehaviour
     private float Distance;
     private GameObject[] Cherries;
     private bool NoCherries = false;
+    
     [SerializeField] private TextMeshProUGUI DistanceText;
+    [SerializeField] private Image CompassImage;
     
     void Update()
     {
@@ -23,13 +25,15 @@ public class Compass : MonoBehaviour
             DistanceText.text = "Distance To Objective: " + Math.Round(Distance);
             
             var lookPos = Target.position - transform.position;
+            Debug.Log(lookPos);
             lookPos.y = 0;
+            lookPos.x = 0;
             var rotation = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 1f);
+            CompassImage.rectTransform.rotation = Quaternion.Euler(90, 0, 0);
         }
         else
         {
-            //start spinning
             transform.Rotate(0, 500 * Time.deltaTime, 0);
             DistanceText.text = "Distance To Objective: 0";
         }
