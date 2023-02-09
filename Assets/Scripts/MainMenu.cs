@@ -1,13 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private Image OptionsPanel;
     [SerializeField] private TextMeshProUGUI DeathText;
     private int DeathAmount = 0;
     private void Start()
@@ -32,9 +31,10 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(1);
     }
     
-    public void CustomButton()
+    public void Options()
     {
-        Debug.Log("Custom Button Pressed");
+        Debug.Log("Click");
+        OptionsPanel.gameObject.SetActive(true);
     }
     
     public void QuitButton()

@@ -1,11 +1,8 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 
 public class PlayerDeath : MonoBehaviour
 {
@@ -19,10 +16,13 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private Image DeathPanel;
     [SerializeField] private float WaitTimer;
     [SerializeField] private int Deaths;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _audioClip;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        _audioSource.clip = _audioClip;
     }
 
     void Update()
@@ -68,12 +68,13 @@ public class PlayerDeath : MonoBehaviour
     {
         if (WaitTimer >= 2 && !DeathScreen)
         {
+            _audioSource.Play();
             DeathScreen = true;
             Deaths++;
             Debug.Log(Deaths);
             PlayerPrefs.SetInt("Deaths", PlayerPrefs.GetInt("Deaths") + 1);
             Debug.Log(PlayerPrefs.GetInt("Deaths"));
-            // SceneManager.LoadScene(0);
+            SceneManager.LoadScene(2);
             WaitTimer = 0;
         }
     }

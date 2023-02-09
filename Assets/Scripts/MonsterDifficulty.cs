@@ -1,22 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class MonsterDifficulty : MonoBehaviour
 {
     [SerializeField] Collectible collectible;
     [SerializeField] float ItemsCollected;
     [SerializeField] Terrain terrain;
-	
 
     public float ObstacleRadius;
-    private bool Spawned = false;
+    public bool Spawned = false;
     public GameObject monster;
     public float MonsterSpeed;
-
-    // Update is called once per frame
+    public bool Scream;
+    
     void Update()
     {
         ItemsCollected = collectible.ItemsCollected;
@@ -39,6 +35,7 @@ public class MonsterDifficulty : MonoBehaviour
             if (obstacles.Length == 0)
             {
                 monster.transform.position = SpawnPosition;
+                Scream = true;
                 monster.SetActive(true);
             }
             Spawned = true;

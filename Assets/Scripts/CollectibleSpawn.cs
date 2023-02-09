@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectibleSpawn : MonoBehaviour
 {
-    public GameObject objectToSpawn; // The object to spawn
-    public int numberToSpawn; // The number of objects to spawn
-    public Terrain terrain; // The terrain to spawn the objects on
-    public float ObstacleRadius; // The radius to spawn the objects in
+    public GameObject objectToSpawn;
+    public int numberToSpawn;
+    public Terrain terrain;
+    public float ObstacleRadius;
     public Collectible collectible;
 
 
@@ -23,7 +21,7 @@ public class CollectibleSpawn : MonoBehaviour
 
             SpawnPosition.y = terrain.SampleHeight(SpawnPosition);
 
-            Collider[] obstacles = Physics.OverlapSphere(SpawnPosition, ObstacleRadius, 1);
+            Collider[] obstacles = Physics.OverlapSphere(SpawnPosition, ObstacleRadius, 3);
 
             if (obstacles.Length == 0)
             {

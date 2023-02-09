@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
 
 
 public class MonsterMovement : MonoBehaviour
@@ -14,10 +11,13 @@ public class MonsterMovement : MonoBehaviour
     private float CurrentSpeed;
     private float Attack;
     MonsterDifficulty monsterDifficulty;
-    
+
     [SerializeField] MonsterAttack monsterAttack;
     [SerializeField] float MonsterSpeed;
     [SerializeField] float AnimationSpeed;
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _audioClip;
+    [SerializeField] AudioClip _audioClip2;
 
     private enum AnimStates
     {
@@ -27,8 +27,7 @@ public class MonsterMovement : MonoBehaviour
         Attack2,
     }
 
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -38,17 +37,20 @@ public class MonsterMovement : MonoBehaviour
         monsterAttack = GetComponent<MonsterAttack>();
         monsterDifficulty = GameObject.Find("MapInit").GetComponent<MonsterDifficulty>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         Attack = monsterAttack.Attack;
         MonsterSpeed = monsterDifficulty.MonsterSpeed;
         agent.speed = MonsterSpeed;
         UpdateAnimationState();
-        // SetDestination();
 
         AnimationSpeed = MonsterSpeed;
+        if (monsterDifficulty.Scream)
+        {
+            Scream();
+            monsterDifficulty.Scream = false;
+        }
     }
 
     void UpdateAnimationState()
@@ -74,9 +76,24 @@ public class MonsterMovement : MonoBehaviour
             anim.speed = 1f;
         }
     }
-    
+
     void SetDestination()
     {
         agent.SetDestination(player.position);
+    }
+
+    void Step()
+    {
+        if (!monsterDifficulty.Scream)
+        {
+            _audioSource.clip = _audioClip;
+            _audioSource.Play();
+        }
+    }
+
+    void Scream()
+    {
+        _audioSource.clip = _audioClip2;
+        _audioSource.Play();
     }
 }

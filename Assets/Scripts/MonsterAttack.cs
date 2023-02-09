@@ -1,25 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterAttack : MonoBehaviour
 {
     private Transform Player;
-    private float AttackRange = 1f;
+    private float AttackRange = 3f;
     public float Attack;
     [SerializeField]private float TimePassed;
     private Animator anim;
     [SerializeField]private bool Attacking;
     public bool PlayerKilled = false;
     
-    // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.Find("Player").transform;
         anim = GetComponent<Animator>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         TimePassed += Time.deltaTime;

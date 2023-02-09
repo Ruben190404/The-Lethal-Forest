@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,8 +16,7 @@ public class Wander : MonoBehaviour
     [SerializeField] private bool mayWait;
 
     [SerializeField] private float waitTimer;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         _sensor = GetComponent<AISensor>();
@@ -27,11 +25,9 @@ public class Wander : MonoBehaviour
         mayWait = true;
         getNewTarget();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        Debug.Log(_sensor.PlayerInSight);
         if (!_sensor.PlayerInSight)
         {
             _agent.SetDestination(newPos);

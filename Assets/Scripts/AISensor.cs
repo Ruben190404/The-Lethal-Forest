@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-// using Mono.Cecil.Cil;
 using UnityEngine;
 using UnityEngine.AI;
-using Object = System.Object;
 
 [ExecuteInEditMode]
 public class AISensor : MonoBehaviour
@@ -29,14 +25,11 @@ public class AISensor : MonoBehaviour
     private float scanTimer;
     public bool PlayerInSight = false;
     
-    
-    // Start is called before the first frame update
     void Start()
     {
         scanInterval = 1.0f / scanFrequencey;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         scanTimer -= Time.deltaTime;
@@ -63,10 +56,10 @@ public class AISensor : MonoBehaviour
                     agent = GetComponent<NavMeshAgent>();
                     agent.SetDestination(obj.transform.position);
                 }
-                else
-                {
-                    PlayerInSight = false;
-                }
+            }
+            else
+            {
+                PlayerInSight = false;
             }
         }
     }

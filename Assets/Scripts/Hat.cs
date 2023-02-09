@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Hat : MonoBehaviour
 {
     private int Wins;
     [SerializeField] private GameObject HatObject;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         Renderer rend = HatObject.GetComponent<Renderer>();
