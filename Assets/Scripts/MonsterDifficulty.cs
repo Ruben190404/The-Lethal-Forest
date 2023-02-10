@@ -6,17 +6,19 @@ public class MonsterDifficulty : MonoBehaviour
     [SerializeField] Collectible collectible;
     [SerializeField] float ItemsCollected;
     [SerializeField] Terrain terrain;
+    [SerializeField] Transform Player;
 
     public float ObstacleRadius;
     public bool Spawned = false;
     public GameObject monster;
     public float MonsterSpeed;
     public bool Scream;
-    
+
     void Update()
     {
         ItemsCollected = collectible.ItemsCollected;
-		MonsterSpeed = ItemsCollected * 1.7f;
+        MonsterSpeed = ItemsCollected * 2;
+		
         SpawnMonster();
     }
 
@@ -35,6 +37,7 @@ public class MonsterDifficulty : MonoBehaviour
             if (obstacles.Length == 0)
             {
                 monster.transform.position = SpawnPosition;
+                monster.transform.LookAt(Player);
                 Scream = true;
                 monster.SetActive(true);
             }

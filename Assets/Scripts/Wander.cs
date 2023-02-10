@@ -8,17 +8,20 @@ public class Wander : MonoBehaviour
 
     [Header("Initialization")] [SerializeField]
     private GameObject _player;
-
+    public bool Teleported = false;
+    
+    [SerializeField] Collectible _collectible;
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private Animator _animator;
     [Header("Wandering")] public float wanderRadius;
     [SerializeField] private Vector3 newPos;
     [SerializeField] private bool mayWait;
-
     [SerializeField] private float waitTimer;
     
     void Start()
     {
+        _collectible = GameObject.Find("Player").GetComponent<Collectible>();
+        Teleported = _collectible.Teleported;
         _sensor = GetComponent<AISensor>();
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
@@ -42,6 +45,12 @@ public class Wander : MonoBehaviour
             }
 
             _animator.SetInteger("State", 1);
+        }
+
+        if (Teleported)
+        {
+            getNewTarget();
+            _collectible.Teleported = false;
         }
     }
 

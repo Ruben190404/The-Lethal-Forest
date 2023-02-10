@@ -1,36 +1,37 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class Collectible : MonoBehaviour
 {
-    MonsterDifficulty monsterDifficulty;
+    [SerializeField] private MonsterDifficulty monsterDifficulty;
     public int TotalItems;
     public float ItemsCollected = 0;
+    public bool Teleported = false;
 
     private Transform Target;
     private float Distance;
     private GameObject[] Cherries;
     private bool NoCherries = false;
-    bool MonsterSpawned = false;
+    public bool MonsterSpawned = false;
 
+
+    [SerializeField] private Transform Player;
     [SerializeField] private GameObject Monster;
     [SerializeField] private TextMeshProUGUI DistanceText;
     [SerializeField] private TextMeshProUGUI Text;
     [SerializeField] private AudioSource collectionSoundEffect;
 
-    private void Start()
-    {
-        monsterDifficulty = GameObject.Find("Monster").GetComponent<MonsterDifficulty>();
-        MonsterSpawned = monsterDifficulty.Spawned;
-    }
-
     private void Update()
     {
+        MonsterSpawned = monsterDifficulty.Spawned;
         if (MonsterSpawned)
         {
             Monster = GameObject.FindGameObjectWithTag("Monster");
         }
+
         NearestCherry();
         if (!NoCherries)
         {
@@ -88,9 +89,12 @@ public class Collectible : MonoBehaviour
 
     void TeleportMonster()
     {
-        //teleport monster 10 units away from player in any direction
-        Monster.transform.position = transform.position +
-                                     new Vector3(UnityEngine.Random.Range(-10, 10), 0,
-                                         UnityEngine.Random.Range(-10, 10));
+        if (MonsterSpawned)
+        {
+            Monster.GetComponent<NavMeshAgent>()
+                .Warp(Player.position + new Vector3(Random.Range(5, 15), 0, Random.Range(5, 15)));
+            Monster.transform.LookAt(Player);
+            Teleported = true;
+        }
     }
 }

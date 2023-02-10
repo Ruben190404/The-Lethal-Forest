@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     public bool NotRotating = true;
     private float mouseX;
-    private bool GameIsPaused = false;
+    public bool GameIsPaused = false;
 
     [SerializeField] private float NormalSpeed;
     [SerializeField] private float SprintSpeed;
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         Physics.gravity = new Vector3(0, -Gravity, 0);
         Speed = NormalSpeed;
         Cursor.visible = false;
-        pauseMenu = pauseCanvas.GetComponent<PauseMenu>();
+        pauseMenu = GetComponent<PauseMenu>();
     }
 
     void Update()
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         mouseX = Input.GetAxis("Mouse X") * CameraSensitivity;
-        if (GameIsPaused == false)
+        if (!GameIsPaused)
         {
             transform.Rotate(0, mouseX, 0);
         }

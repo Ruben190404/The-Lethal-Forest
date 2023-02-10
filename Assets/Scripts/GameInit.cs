@@ -7,6 +7,7 @@ public class GameInit : MonoBehaviour
     public GameObject Monster;
     public Transform SpawnPosition;
     private Collectible _collectible;
+    private bool BGMplaying = false;
 
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _audioClip;
@@ -26,9 +27,12 @@ public class GameInit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_collectible.ItemsCollected == 1)
+        if (_collectible.ItemsCollected == 1 && !BGMplaying)
         {
             _audioSource.clip = _audioClip2;
+            _audioSource.Play();
+            _audioSource.volume = 0.5f;
+            BGMplaying = true;
         }
 
         if (PlayerPrefs.HasKey("FOV"))

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Credits : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class Credits : MonoBehaviour
     [SerializeField] private TextMeshProUGUI WinsAmount;
     [SerializeField] private GameObject CreditList;
     public bool FadeEnded;
-    public float TimePassed;
 
     void Start()
     {
@@ -20,8 +20,6 @@ public class Credits : MonoBehaviour
             Text.color = Color.black;
         }
         CreditList.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
-        Debug.Log(Panel.transform.position.y);
-        Debug.Log(EndText.transform.position.y);
         StartCoroutine(Fade());
         if (PlayerPrefs.GetInt("Wins") > 1)
         {
@@ -29,7 +27,7 @@ public class Credits : MonoBehaviour
         }
         else
         {
-            WinsAmount.text = "First Win!";
+            WinsAmount.text = "Congrats on your first win!";
         }
     }
 
@@ -41,13 +39,13 @@ public class Credits : MonoBehaviour
             {
                 Text.color = Color.white;
             }
-            TimePassed += Time.deltaTime;
             Panel.transform.position += new Vector3(0, 0.1f, 0);
         }
-        if (TimePassed >= 13)
-        {
-            Debug.Log("Done");
-        }
+        
+       if (Input.GetKeyDown(KeyCode.Escape))
+       {
+           SceneManager.LoadScene("Main Menu");
+       }
     }
 
     IEnumerator Fade()
