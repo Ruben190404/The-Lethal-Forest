@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -24,6 +25,18 @@ public class MainMenu : MonoBehaviour
             DeathText.text = "Deaths: " + DeathAmount;
         }
         Cursor.visible = true;
+    }
+
+    private void Update()
+    {
+        if (PlayerPrefs.HasKey("Fullscreen"))
+        {
+            Screen.fullScreen = Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen"));
+        }
+        else
+        {
+            Screen.fullScreen = true;
+        }
     }
 
     public void StartButton()

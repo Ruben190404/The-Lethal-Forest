@@ -59,7 +59,7 @@ public class Collectible : MonoBehaviour
     public void LoadCollectibles()
     {
         TotalItems = GameObject.FindGameObjectsWithTag("Cherry").Length;
-        Text.text = ItemsCollected + "/" + TotalItems;
+        Text.text = "Collected: " + ItemsCollected + "/" + TotalItems;
     }
 
     void NearestCherry()

@@ -1,39 +1,55 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class Options : MonoBehaviour
 {
-    
-    public int _pps;
-    private bool IntBool;
+    private bool _pps;
     private float _fovValue;
     private float _sensitivityValue;
+    private bool _fullscreen;
     
     [SerializeField] private GameObject _ppsToggle;
+    [SerializeField] private GameObject _fullscreenToggle;
     [SerializeField] private GameObject _sensitivitySlider;
     [SerializeField] private GameObject _fovSlider;
     [SerializeField] private TextMeshProUGUI _sensitivityText;
     [SerializeField] private TextMeshProUGUI _fovText;
     [SerializeField] private Image _optionsPanel;
 
-    void Update()
+
+    private void Update()
     {
-        IntToBool();
         PPSvalue();
+        FullscreenValue();
         SensitivityValue();
         FOVvalue();
     }
-    
+
     void PPSvalue()
     {
         if (PlayerPrefs.HasKey("PPS"))
         {
-            _ppsToggle.GetComponent<Toggle>().isOn = IntBool;
+            _pps = Convert.ToBoolean(PlayerPrefs.GetInt("PPS"));
+            _ppsToggle.GetComponent<Toggle>().isOn = _pps;
         }
         else
         {
             PlayerPrefs.SetInt("PPS", 1);
+        }
+    }
+    
+    void FullscreenValue()
+    {
+        if (PlayerPrefs.HasKey("Fullscreen"))
+        {
+            _fullscreen = Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen"));
+            _fullscreenToggle.GetComponent<Toggle>().isOn = _fullscreen;
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Fullscreen", 1);
         }
     }
     
@@ -65,22 +81,6 @@ public class Options : MonoBehaviour
         }
     }
 
-    void IntToBool()
-    {
-        if (PlayerPrefs.HasKey("PPS"))
-        {
-            _pps = PlayerPrefs.GetInt("PPS");
-            if (_pps == 1)
-            {
-                IntBool = true;
-            }
-            else
-            {
-                IntBool = false;
-            }
-        }
-    }
-
     public void SensitivitySlide()
     {
         PlayerPrefs.SetFloat("Sensitivity", _sensitivitySlider.GetComponent<Slider>().value);
@@ -93,13 +93,25 @@ public class Options : MonoBehaviour
     
     public void PPSToggle()
     {
-        if (IntBool)
+        if (_pps)
         {
             PlayerPrefs.SetInt("PPS", 0);
         }
         else
         {
             PlayerPrefs.SetInt("PPS", 1);
+        }
+    }
+    
+    public void FullscreenToggle()
+    {
+        if (_fullscreen)
+        {
+            PlayerPrefs.SetInt("Fullscreen", 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Fullscreen", 1);
         }
     }
 

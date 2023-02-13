@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -67,6 +68,14 @@ public class GameInit : MonoBehaviour
         else
         {
             _camera.GetComponent<PostProcessLayer>().enabled = true;
+        }
+        if (PlayerPrefs.HasKey("Fullscreen"))
+        {
+            Screen.fullScreen = Convert.ToBoolean(PlayerPrefs.GetInt("Fullscreen"));
+        }
+        else
+        {
+            Screen.fullScreen = true;
         }
     }
 
